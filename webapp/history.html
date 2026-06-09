@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>보상휴가 자동계산 웹앱 - 다운로드 내역</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#faf8ff",
+                        "tertiary-fixed": "#d8e3fb",
+                        "surface-tint": "#0054d6",
+                        "tertiary": "#4f5a6e",
+                        "secondary-container": "#e0e3e5",
+                        "outline-variant": "#c2c6d8",
+                        "surface-variant": "#e1e2ee",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eff0fd",
+                        "on-primary-fixed": "#001849",
+                        "secondary-fixed-dim": "#c4c7c9",
+                        "primary": "#0050cb",
+                        "on-surface": "#191b24",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e303a",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-fixed-variant": "#444749",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#dae1ff",
+                        "on-tertiary-fixed": "#111c2d",
+                        "tertiary-container": "#677287",
+                        "tertiary-fixed-dim": "#bcc7de",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-tertiary-container": "#f6f7ff",
+                        "on-primary-container": "#f8f7ff",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "on-secondary-fixed": "#191c1e",
+                        "on-surface-variant": "#424656",
+                        "surface-bright": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e1e2ee",
+                        "secondary": "#5c5f61",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#626567",
+                        "inverse-primary": "#b3c5ff",
+                        "outline": "#727687",
+                        "surface-dim": "#d8d9e6",
+                        "surface": "#faf8ff",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container": "#ecedfa",
+                        "primary-container": "#0066ff",
+                        "secondary-fixed": "#e0e3e5",
+                        "on-background": "#191b24",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e6e7f4",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xs": "4px",
+                        "stack-gap": "12px",
+                        "md": "16px",
+                        "base": "4px",
+                        "container-margin": "16px",
+                        "xl": "32px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased h-screen overflow-hidden flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-lg py-sm h-16 shrink-0 z-10 relative">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-3xl icon-fill" data-icon="event_available">event_available</span>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-on-surface dark:text-inverse-on-surface leading-tight">보상휴가 자동계산 웹앱</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant leading-none mt-xs">엑셀 입력 → 자동 계산 → 재입력용 결과 출력</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-container-low transition-colors px-3 py-2 rounded-lg text-label-md font-label-md border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+<span>도움말</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-container-low transition-colors px-3 py-2 rounded-lg text-label-md font-label-md border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+<span>설정</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<button class="flex items-center gap-2 hover:bg-surface-container-low transition-colors p-1 pr-3 rounded-full border border-transparent hover:border-outline-variant">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant icon-fill" data-icon="person">person</span>
+</div>
+<span class="text-label-md font-label-md text-primary dark:text-primary-fixed-dim">김관리</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline flex flex-col h-full py-md w-64 shrink-0 z-10 transition-all duration-300">
+<div class="flex-1 overflow-y-auto px-2">
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors text-label-md font-label-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="home">home</span>
+                    대시보드
+                </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors text-label-md font-label-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="cloud_upload">cloud_upload</span>
+                    엑셀 업로드
+                </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors text-label-md font-label-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="bar_chart">bar_chart</span>
+                    계산 결과
+                </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors text-label-md font-label-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="calendar_month">calendar_month</span>
+                    근무표 관리
+                </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors text-label-md font-label-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="rule">rule</span>
+                    계산 규칙
+                </a>
+<a class="bg-primary-container text-on-primary-container font-bold rounded-lg my-1 px-4 py-3 flex items-center gap-3 scale-[0.98] transition-transform text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="history">history</span>
+                    다운로드 내역
+                </a>
+</div>
+<div class="px-2 mt-auto">
+<button class="w-full text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low px-4 py-3 rounded-lg flex items-center gap-3 transition-colors text-label-md font-label-md group justify-start">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="keyboard_double_arrow_left">keyboard_double_arrow_left</span>
+<span>메뉴 접기</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto bg-surface-container-lowest p-lg">
+<div class="max-w-[1200px] mx-auto flex gap-lg">
+<!-- Center Content -->
+<div class="flex-1 flex flex-col gap-lg">
+<!-- Page Header -->
+<div>
+<h2 class="text-[28px] leading-[36px] font-bold text-on-surface font-headline-lg tracking-tight">결과 다운로드 내역</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-2">이전에 생성한 결과 파일을 확인하고 다시 다운로드할 수 있습니다.</p>
+</div>
+<!-- Filter Area -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex gap-md flex-wrap items-end shadow-sm">
+<div class="flex flex-col gap-xs flex-1 min-w-[250px]">
+<label class="text-label-sm font-label-sm text-on-surface-variant font-medium">기간</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors pr-10" readonly="" type="text" value="2026-05-31 ~ 2026-06-07"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="calendar_today">calendar_today</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs flex-1 min-w-[150px]">
+<label class="text-label-sm font-label-sm text-on-surface-variant font-medium">다운로드 형식</label>
+<div class="relative">
+<select class="w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors appearance-none pr-10 cursor-pointer">
+<option>전체</option>
+<option>엑셀</option>
+<option>CSV</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs flex-1 min-w-[150px]">
+<label class="text-label-sm font-label-sm text-on-surface-variant font-medium">생성 상태</label>
+<div class="relative">
+<select class="w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors appearance-none pr-10 cursor-pointer">
+<option>전체</option>
+<option>완료</option>
+<option>생성 중</option>
+<option>실패</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs flex-[2] min-w-[250px]">
+<label class="text-label-sm font-label-sm text-on-surface-variant font-medium">검색</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors pr-10 placeholder-on-surface-variant/50" placeholder="파일명 또는 생성자 검색" type="text"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Summary Cards -->
+<div class="grid grid-cols-4 gap-md">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md shadow-sm">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-3xl icon-fill" data-icon="calendar_month">calendar_month</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant">이번 주 다운로드</p>
+<div class="flex items-baseline gap-2">
+<span class="text-[24px] font-bold text-primary font-headline-lg leading-tight">12</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">건</span>
+</div>
+<p class="text-label-sm font-label-sm text-[#008a00] flex items-center gap-1 mt-1">
+                                    전주 대비 <span class="material-symbols-outlined text-[14px]" data-icon="arrow_drop_up">arrow_drop_up</span> 20%
+                                </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md shadow-sm">
+<div class="w-12 h-12 rounded-lg bg-[#e8f5e9] flex items-center justify-center text-[#2e7d32] shrink-0">
+<span class="material-symbols-outlined text-3xl icon-fill" data-icon="description">description</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant">재입력용 결과</p>
+<div class="flex items-baseline gap-2">
+<span class="text-[24px] font-bold text-[#2e7d32] font-headline-lg leading-tight">8</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">건</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">
+                                    전체의 66.7%
+                                </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md shadow-sm">
+<div class="w-12 h-12 rounded-lg bg-[#f3e5f5] flex items-center justify-center text-[#6a1b9a] shrink-0">
+<span class="material-symbols-outlined text-3xl icon-fill" data-icon="grid_on">grid_on</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant">엑셀 파일</p>
+<div class="flex items-baseline gap-2">
+<span class="text-[24px] font-bold text-[#6a1b9a] font-headline-lg leading-tight">10</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">건</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">
+                                    전체의 83.3%
+                                </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md shadow-sm">
+<div class="w-12 h-12 rounded-lg bg-[#ffebee] flex items-center justify-center text-[#c62828] shrink-0">
+<span class="material-symbols-outlined text-3xl icon-fill" data-icon="warning">warning</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant">실패</p>
+<div class="flex items-baseline gap-2">
+<span class="text-[24px] font-bold text-[#c62828] font-headline-lg leading-tight">0</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">건</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">
+                                    전체의 0%
+                                </p>
+</div>
+</div>
+</div>
+<!-- Data Table Section -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm flex flex-col overflow-hidden">
+<!-- Table Header Actions -->
+<div class="p-md flex justify-between items-center border-b border-outline-variant bg-surface-bright">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">다운로드 내역</h3>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-label-md font-label-md text-on-surface hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                                    선택 다운로드
+                                </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-label-md font-label-md text-on-surface hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px]" data-icon="refresh">refresh</span>
+                                    목록 새로고침
+                                </button>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead class="bg-surface-container-low border-b border-outline-variant text-label-sm font-label-sm text-on-surface-variant">
+<tr>
+<th class="py-3 px-4 font-medium w-[40px] text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</th>
+<th class="py-3 px-4 font-medium">파일명</th>
+<th class="py-3 px-4 font-medium whitespace-nowrap cursor-pointer hover:text-on-surface flex items-center gap-1 group">
+                                            생성일시 
+                                            <span class="material-symbols-outlined text-[14px] text-on-surface-variant group-hover:text-on-surface" data-icon="arrow_downward">arrow_downward</span>
+</th>
+<th class="py-3 px-4 font-medium text-center whitespace-nowrap">포함 건수</th>
+<th class="py-3 px-4 font-medium text-center whitespace-nowrap">다운로드 형식</th>
+<th class="py-3 px-4 font-medium text-center whitespace-nowrap">생성자</th>
+<th class="py-3 px-4 font-medium text-center whitespace-nowrap">상태</th>
+<th class="py-3 px-4 font-medium text-center whitespace-nowrap">만료일</th>
+<th class="py-3 px-4 font-medium text-right w-[180px]">작업</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm text-on-surface divide-y divide-outline-variant/50 bg-surface-container-lowest">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-4 text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-data-mono flex items-center gap-2 text-[13px]">
+<span class="material-symbols-outlined text-[#217346] text-[18px]" data-icon="grid_on">grid_on</span>
+                                            보상휴가결과_2026-06-01.xlsx
+                                        </td>
+<td class="py-3 px-4 font-data-mono text-[13px] text-on-surface-variant">2026-06-07 14:32</td>
+<td class="py-3 px-4 text-center font-data-mono">48</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border border-[#a5d6a7] text-[#2e7d32] bg-[#e8f5e9]">엑셀</span>
+</td>
+<td class="py-3 px-4 text-center">김관리</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold text-[#008a00] bg-[#008a00]/10">완료</span>
+</td>
+<td class="py-3 px-4 text-center font-data-mono text-[13px] text-on-surface-variant">2026-07-07</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="download">download</span>
+                                                    다운로드
+                                                </button>
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors text-on-surface-variant">
+                                                    상세 보기
+                                                </button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-4 text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-data-mono flex items-center gap-2 text-[13px]">
+<span class="material-symbols-outlined text-[#0277bd] text-[18px]" data-icon="description">description</span>
+                                            재입력용_운영팀_2026-06.csv
+                                        </td>
+<td class="py-3 px-4 font-data-mono text-[13px] text-on-surface-variant">2026-06-07 10:18</td>
+<td class="py-3 px-4 text-center font-data-mono">22</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border border-[#81d4fa] text-[#0277bd] bg-[#e1f5fe]">CSV</span>
+</td>
+<td class="py-3 px-4 text-center">김관리</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold text-[#008a00] bg-[#008a00]/10">완료</span>
+</td>
+<td class="py-3 px-4 text-center font-data-mono text-[13px] text-on-surface-variant">2026-07-07</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="download">download</span>
+                                                    다운로드
+                                                </button>
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors text-on-surface-variant">
+                                                    상세 보기
+                                                </button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-4 text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-data-mono flex items-center gap-2 text-[13px]">
+<span class="material-symbols-outlined text-[#217346] text-[18px]" data-icon="grid_on">grid_on</span>
+                                            보상휴가결과_2026-06-04.xlsx
+                                        </td>
+<td class="py-3 px-4 font-data-mono text-[13px] text-on-surface-variant">2026-06-04 16:45</td>
+<td class="py-3 px-4 text-center font-data-mono">46</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border border-[#a5d6a7] text-[#2e7d32] bg-[#e8f5e9]">엑셀</span>
+</td>
+<td class="py-3 px-4 text-center">이서연</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold text-[#008a00] bg-[#008a00]/10">완료</span>
+</td>
+<td class="py-3 px-4 text-center font-data-mono text-[13px] text-on-surface-variant">2026-07-04</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="download">download</span>
+                                                    다운로드
+                                                </button>
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors text-on-surface-variant">
+                                                    상세 보기
+                                                </button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-4 text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-data-mono flex items-center gap-2 text-[13px]">
+<span class="material-symbols-outlined text-[#0277bd] text-[18px]" data-icon="description">description</span>
+                                            재입력용_개발팀_2026-06.csv
+                                        </td>
+<td class="py-3 px-4 font-data-mono text-[13px] text-on-surface-variant">2026-06-04 16:40</td>
+<td class="py-3 px-4 text-center font-data-mono">18</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border border-[#81d4fa] text-[#0277bd] bg-[#e1f5fe]">CSV</span>
+</td>
+<td class="py-3 px-4 text-center">이서연</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold text-[#008a00] bg-[#008a00]/10">완료</span>
+</td>
+<td class="py-3 px-4 text-center font-data-mono text-[13px] text-on-surface-variant">2026-07-04</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="download">download</span>
+                                                    다운로드
+                                                </button>
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors text-on-surface-variant">
+                                                    상세 보기
+                                                </button>
+</div>
+</td>
+</tr>
+<!-- Row 5 (Processing state) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors bg-surface-container-low/30">
+<td class="py-3 px-4 text-center">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" disabled="" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-data-mono flex items-center gap-2 text-[13px]">
+<span class="material-symbols-outlined text-[#0277bd]/50 text-[18px]" data-icon="description">description</span>
+                                            재입력용_영업팀_2026-06.csv
+                                        </td>
+<td class="py-3 px-4 font-data-mono text-[13px] text-on-surface-variant">2026-06-01 17:50</td>
+<td class="py-3 px-4 text-center font-data-mono">20</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border border-[#81d4fa]/50 text-[#0277bd]/70 bg-[#e1f5fe]/50">CSV</span>
+</td>
+<td class="py-3 px-4 text-center">정하늘</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold text-[#e65100] bg-[#fff3e0]">생성 중</span>
+</td>
+<td class="py-3 px-4 text-center font-data-mono text-[13px] text-on-surface-variant">-</td>
+<td class="py-3 px-4 text-right">
+<div class="flex items-center justify-end gap-1 opacity-50 pointer-events-none">
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="download">download</span>
+                                                    다운로드
+                                                </button>
+<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded text-on-surface-variant">
+                                                    상세 보기
+                                                </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-outline-variant flex items-center justify-between bg-surface-bright">
+<span class="text-label-sm font-label-sm text-on-surface-variant">총 12건</span>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-medium text-body-sm font-body-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-transparent hover:bg-surface-container-low text-on-surface transition-colors font-medium text-body-sm font-body-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar (Policy & Info) -->
+<div class="w-[280px] shrink-0 flex flex-col gap-md">
+<!-- Policy Card 1 -->
+<div class="bg-[#f0f4ff] border border-[#d6e4ff] rounded-xl p-md">
+<div class="flex items-center gap-2 text-primary mb-3">
+<span class="material-symbols-outlined icon-fill" data-icon="security">security</span>
+<h4 class="text-label-md font-label-md font-bold">보관 정책</h4>
+</div>
+<ul class="text-body-sm font-body-sm text-on-surface-variant space-y-2 list-disc pl-4 marker:text-primary">
+<li>다운로드 파일은 기본 30일간 보관됩니다.</li>
+<li>만료일이 지난 파일은 자동으로 삭제됩니다.</li>
+<li>중요한 파일은 다운로드하여 개인 보관하세요.</li>
+</ul>
+</div>
+<!-- Policy Card 2 -->
+<div class="bg-[#fff8e1] border border-[#ffecb3] rounded-xl p-md">
+<div class="flex items-center gap-2 text-[#f57f17] mb-3">
+<span class="material-symbols-outlined icon-fill" data-icon="lock">lock</span>
+<h4 class="text-label-md font-label-md font-bold">개인정보 유의</h4>
+</div>
+<p class="text-body-sm font-body-sm text-[#5d4037] leading-relaxed">
+                            사번·이름·부서 포함 파일은 사내 기준에 따라 처리하세요.<br/>외부 공유 시 주의 바랍니다.
+                        </p>
+</div>
+<!-- Recent Summary Card -->
+<div class="bg-[#f1f8e9] border border-[#c5e1a5] rounded-xl p-md">
+<div class="flex items-center gap-2 text-[#33691e] mb-4">
+<span class="material-symbols-outlined icon-fill" data-icon="tune">tune</span>
+<h4 class="text-label-md font-label-md font-bold">최근 다운로드 요약</h4>
+</div>
+<div class="space-y-3">
+<div>
+<p class="text-[11px] text-[#558b2f] mb-1">최근 파일</p>
+<p class="text-body-sm font-body-sm font-data-mono font-medium text-[#1b5e20] break-all">보상휴가결과_2026-06-01.xlsx</p>
+</div>
+<div>
+<p class="text-[11px] text-[#558b2f] mb-1">생성일시</p>
+<p class="text-body-sm font-body-sm font-data-mono text-[#1b5e20]">2026-06-07 14:32</p>
+</div>
+<div>
+<p class="text-[11px] text-[#558b2f] mb-1">포함 건수</p>
+<p class="text-body-sm font-body-sm font-data-mono font-medium text-[#1b5e20]">48건</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="engine.js"></script>
+<script>
+(function () {
+  var E = window.CompEngine;
+  function $all(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function byText(sel, re) { return $all(sel).filter(function (el) { return re.test(el.textContent || ''); }); }
+  function fmtTs(ts) {
+    var d = new Date(ts);
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2) +
+      ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+  }
+  function expiry(ts) {
+    var d = new Date(ts); d.setDate(d.getDate() + 30);
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
+  function fmtBadge(format) {
+    if (format === 'CSV')
+      return '<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border border-[#81d4fa] text-[#0277bd] bg-[#e1f5fe]">CSV</span>';
+    return '<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border border-[#a5d6a7] text-[#2e7d32] bg-[#e8f5e9]">엑셀</span>';
+  }
+  function icon(format) {
+    return format === 'CSV'
+      ? '<span class="material-symbols-outlined text-[#0277bd] text-[18px]">description</span>'
+      : '<span class="material-symbols-outlined text-[#217346] text-[18px]">grid_on</span>';
+  }
+  function rowHTML(h) {
+    return '<tr class="hover:bg-surface-container-low/50 transition-colors">' +
+      '<td class="py-3 px-4 text-center"><input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"></td>' +
+      '<td class="py-3 px-4 font-data-mono flex items-center gap-2 text-[13px]">' + icon(h.format) + h.name + '</td>' +
+      '<td class="py-3 px-4 font-data-mono text-[13px] text-on-surface-variant">' + fmtTs(h.ts) + '</td>' +
+      '<td class="py-3 px-4 text-center font-data-mono">' + (h.count || 0) + '</td>' +
+      '<td class="py-3 px-4 text-center">' + fmtBadge(h.format) + '</td>' +
+      '<td class="py-3 px-4 text-center">' + (h.author || '김관리') + '</td>' +
+      '<td class="py-3 px-4 text-center"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold text-[#008a00] bg-[#008a00]/10">완료</span></td>' +
+      '<td class="py-3 px-4 text-center font-data-mono text-[13px] text-on-surface-variant">' + expiry(h.ts) + '</td>' +
+      '<td class="py-3 px-4 text-right"><div class="flex items-center justify-end gap-1">' +
+      '<button class="dl-btn px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-[14px]">download</span>다운로드</button>' +
+      '<button class="px-2 py-1 text-[11px] font-medium border border-outline-variant rounded hover:bg-surface-container-high transition-colors text-on-surface-variant">상세 보기</button>' +
+      '</div></td></tr>';
+  }
+
+  function reDownload(h) {
+    var data = E.loadResults();
+    var rows = (data && data.results) ? data.results : [];
+    if (!rows.length) { alert('재생성할 결과 데이터가 없습니다. (메타데이터만 보관)'); return; }
+    if (h.format === 'CSV') E.exportCSV(rows, h.name);
+    else E.exportXLSX(rows, h.name);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var list = E.loadHistory();
+    var tb = document.querySelector('main tbody');
+    if (list.length && tb) {
+      tb.innerHTML = list.map(rowHTML).join('');
+      $all('.dl-btn').forEach(function (b, i) { b.addEventListener('click', function () { reDownload(list[i]); }); });
+      // 요약 카드
+      function setCard(label, val) {
+        var p = byText('p', new RegExp('^' + label + '$'))[0];
+        if (p) { var v = p.parentElement.querySelector('.font-bold'); if (v) v.textContent = val; }
+      }
+      var total = list.length;
+      var csv = list.filter(function (h) { return h.format === 'CSV'; }).length;
+      var xls = total - csv;
+      setCard('이번 주 다운로드', total);
+      setCard('재입력용 결과', csv);
+      setCard('엑셀 파일', xls);
+      setCard('실패', 0);
+      byText('span', /총 \d+건/).forEach(function (s) { s.textContent = '총 ' + total + '건'; });
+    }
+    // 헤더 전체선택
+    var headChk = document.querySelector('thead input[type=checkbox]');
+    if (headChk) headChk.addEventListener('change', function () {
+      $all('tbody input[type=checkbox]').forEach(function (c) { if (!c.disabled) c.checked = headChk.checked; });
+    });
+  });
+})();
+</script>
+</body></html>

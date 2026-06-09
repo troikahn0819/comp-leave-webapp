@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>보상휴가 자동계산 웹앱 - 근무표 관리</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#faf8ff",
+                      "tertiary-fixed": "#d8e3fb",
+                      "surface-tint": "#0054d6",
+                      "tertiary": "#4f5a6e",
+                      "secondary-container": "#e0e3e5",
+                      "outline-variant": "#c2c6d8",
+                      "surface-variant": "#e1e2ee",
+                      "error-container": "#ffdad6",
+                      "inverse-on-surface": "#eff0fd",
+                      "on-primary-fixed": "#001849",
+                      "secondary-fixed-dim": "#c4c7c9",
+                      "primary": "#0050cb",
+                      "on-surface": "#191b24",
+                      "on-error": "#ffffff",
+                      "inverse-surface": "#2e303a",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "on-secondary-fixed-variant": "#444749",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#dae1ff",
+                      "on-tertiary-fixed": "#111c2d",
+                      "tertiary-container": "#677287",
+                      "tertiary-fixed-dim": "#bcc7de",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "on-tertiary-container": "#f6f7ff",
+                      "on-primary-container": "#f8f7ff",
+                      "on-tertiary-fixed-variant": "#3c475a",
+                      "on-secondary-fixed": "#191c1e",
+                      "on-surface-variant": "#424656",
+                      "surface-bright": "#faf8ff",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e1e2ee",
+                      "secondary": "#5c5f61",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-container": "#626567",
+                      "inverse-primary": "#b3c5ff",
+                      "outline": "#727687",
+                      "surface-dim": "#d8d9e6",
+                      "surface": "#faf8ff",
+                      "surface-container-low": "#f2f3ff",
+                      "surface-container": "#ecedfa",
+                      "primary-container": "#0066ff",
+                      "secondary-fixed": "#e0e3e5",
+                      "on-background": "#191b24",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#e6e7f4",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "xs": "4px",
+                      "stack-gap": "12px",
+                      "md": "16px",
+                      "base": "4px",
+                      "container-margin": "16px",
+                      "xl": "32px",
+                      "sm": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "data-mono": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-sm": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.03em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "data-mono": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom Scrollbar for better enterprise feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e1e2ee;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c2c6d8;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-background border-b border-outline-variant flex justify-between items-center w-full px-lg py-sm h-16 shrink-0 z-50">
+<div class="flex items-center gap-sm">
+<span aria-hidden="true" class="material-symbols-outlined text-primary text-2xl icon-fill">event_available</span>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">보상휴가 자동계산 웹앱</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant hidden md:block">엑셀 입력 → 자동 계산 → 재입력용 결과 출력</span>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button aria-label="도움말" class="flex items-center gap-xs px-sm py-xs rounded hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-xl">help</span>
+<span class="text-label-md font-label-md hidden sm:inline">도움말</span>
+</button>
+<button aria-label="설정" class="flex items-center gap-xs px-sm py-xs rounded hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-label-md font-label-md hidden sm:inline">설정</span>
+</button>
+<button class="flex items-center gap-sm pl-sm py-xs rounded hover:bg-surface-container-low transition-colors ml-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">person</span>
+</div>
+<span class="text-label-md font-label-md text-primary font-bold">김관리</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant">expand_more</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Web Only) -->
+<nav class="hidden md:flex flex-col h-full border-r border-outline-variant py-md bg-surface w-64 shrink-0 overflow-y-auto">
+<div class="flex-1 space-y-sm px-sm">
+<a class="text-on-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">home</span>
+<span class="text-label-md font-label-md">대시보드</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">cloud_upload</span>
+<span class="text-label-md font-label-md">엑셀 업로드</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">bar_chart</span>
+<span class="text-label-md font-label-md">계산 결과</span>
+</a>
+<a aria-current="page" class="bg-primary-container text-on-primary-container font-bold rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 opacity-90 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined icon-fill">calendar_month</span>
+<span class="text-label-md font-label-md">근무표 관리</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">rule</span>
+<span class="text-label-md font-label-md">계산 규칙</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">history</span>
+<span class="text-label-md font-label-md">다운로드 내역</span>
+</a>
+</div>
+<div class="px-sm mt-auto">
+<button class="w-full text-on-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 transition-colors justify-start">
+<span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+<span class="text-label-md font-label-md">메뉴 접기</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background p-md md:p-lg lg:p-xl flex flex-col gap-lg">
+<!-- Page Header -->
+<div class="flex flex-col gap-xs mb-sm">
+<h1 class="text-headline-lg font-headline-lg text-on-surface">연간 근무표 관리</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">철야근무 익일의 평일/휴일/휴무 판정에 사용되는 날짜 기준 근무표를 업로드하고 관리합니다.</p>
+</div>
+<!-- Dashboard Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md shadow-sm">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined icon-fill text-2xl">calendar_today</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant">현재 적용 근무표</span>
+<span class="text-headline-sm font-headline-sm text-on-surface">2026 연간 근무표 v2</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md shadow-sm">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-2xl">schedule</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant">최종 업데이트</span>
+<span class="text-headline-sm font-headline-sm text-on-surface">2026-06-05 14:20</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md shadow-sm">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center text-[#10b981] shrink-0">
+<span class="material-symbols-outlined icon-fill text-2xl">check_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant">적용 상태</span>
+<span class="text-headline-sm font-headline-sm text-[#10b981] font-bold">정상</span>
+</div>
+</div>
+</div>
+<!-- Two Column Layout for Main Content -->
+<div class="flex flex-col lg:flex-row gap-lg items-start">
+<!-- Left Column: Upload & History -->
+<div class="w-full lg:w-1/3 flex flex-col gap-lg">
+<!-- Upload Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm flex flex-col gap-md">
+<h2 class="text-headline-sm font-headline-sm text-on-surface border-b border-outline-variant pb-sm">근무표 엑셀 업로드</h2>
+<!-- Drag & Drop Zone -->
+<div class="border-2 border-dashed border-primary/30 bg-surface-container-low rounded-lg p-lg flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container transition-colors group">
+<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white mb-sm group-hover:scale-105 transition-transform shadow-md">
+<span class="material-symbols-outlined text-3xl">cloud_upload</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">.xls 또는 .xlsx 파일을 드래그하거나<br/>클릭하여 업로드</span>
+</div>
+<div class="flex items-start gap-xs text-on-surface-variant bg-surface-container p-sm rounded">
+<span class="material-symbols-outlined text-sm shrink-0 mt-[2px]">info</span>
+<span class="text-label-sm font-label-sm leading-relaxed">권장 형식: 날짜, 요일, 상태(평일/휴일/휴무)</span>
+</div>
+<!-- Version History -->
+<div class="mt-sm flex flex-col gap-sm">
+<h3 class="text-label-md font-label-md text-on-surface font-bold">버전 히스토리</h3>
+<div class="border border-outline-variant rounded-lg overflow-hidden flex flex-col">
+<!-- Active Version -->
+<label class="flex items-center p-sm gap-sm bg-surface-container-low border-b border-outline-variant cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant shrink-0" name="version" type="radio"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex justify-between items-center w-full">
+<span class="text-label-md font-label-md text-primary font-bold truncate">v2 2026 연간 근무표 v2</span>
+<span class="text-label-sm font-label-sm text-primary bg-primary-container/20 px-2 py-0.5 rounded ml-2 shrink-0">(현재 적용)</span>
+</div>
+</div>
+</label>
+<!-- Inactive Version 1 -->
+<label class="flex items-center p-sm gap-sm border-b border-outline-variant cursor-pointer hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant shrink-0" name="version" type="radio"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex justify-between items-center w-full">
+<span class="text-label-md font-label-md text-on-surface truncate">v1 2026 연간 근무표 v1</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant shrink-0">2026-05-20 09:10</span>
+</div>
+</div>
+</label>
+<!-- Inactive Version 0 -->
+<label class="flex items-center p-sm gap-sm cursor-pointer hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant shrink-0" name="version" type="radio"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex justify-between items-center w-full">
+<span class="text-label-md font-label-md text-on-surface truncate">v0 2026 연간 근무표 (초기)</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant shrink-0">2026-04-15 16:30</span>
+</div>
+</div>
+</label>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex gap-sm mt-xs">
+<button class="flex-1 bg-primary text-on-primary text-label-md font-label-md py-2.5 rounded flex items-center justify-center gap-sm hover:bg-primary/90 transition-colors shadow-sm min-h-[44px]">
+<span class="material-symbols-outlined text-lg">upload</span>
+                                새 근무표 업로드
+                            </button>
+<button class="flex-1 bg-surface-container-lowest text-primary border border-primary text-label-md font-label-md py-2.5 rounded flex items-center justify-center gap-sm hover:bg-surface-container-low transition-colors min-h-[44px]">
+<span class="material-symbols-outlined text-lg">sync_alt</span>
+                                적용 버전 변경
+                            </button>
+</div>
+<ul class="text-body-sm font-body-sm text-on-surface-variant list-disc pl-4 space-y-1 mt-xs">
+<li>업로드 후 미리보기로 내용을 확인하시고, 필요한 경우 적용 버전을 변경하세요.</li>
+<li>새로 업로드하면 가장 최신 버전이 자동으로 선택됩니다.</li>
+</ul>
+</div>
+</div>
+<!-- Middle Column: Calendar View -->
+<div class="w-full lg:w-2/3 flex flex-col gap-lg">
+<!-- Calendar Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm flex flex-col">
+<!-- Calendar Header -->
+<div class="flex justify-between items-center mb-md pb-sm border-b border-outline-variant">
+<h2 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-sm">
+                                2026년 6월 근무표 미리보기
+                                <div class="flex gap-1 ml-sm">
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</h2>
+<button class="px-sm py-1 border border-outline-variant rounded text-label-md font-label-md hover:bg-surface-container-low transition-colors text-on-surface min-h-[32px]">오늘</button>
+</div>
+<!-- Calendar Grid -->
+<div class="w-full overflow-x-auto">
+<div class="min-w-[600px]">
+<!-- Days Header -->
+<div class="grid grid-cols-7 border-b border-outline-variant">
+<div class="py-2 text-center text-label-sm font-label-sm text-on-surface font-bold bg-surface-container-low/50">일</div>
+<div class="py-2 text-center text-label-sm font-label-sm text-on-surface font-bold bg-surface-container-low/50">월</div>
+<div class="py-2 text-center text-label-sm font-label-sm text-on-surface font-bold bg-surface-container-low/50">화</div>
+<div class="py-2 text-center text-label-sm font-label-sm text-on-surface font-bold bg-surface-container-low/50">수</div>
+<div class="py-2 text-center text-label-sm font-label-sm text-on-surface font-bold bg-surface-container-low/50">목</div>
+<div class="py-2 text-center text-label-sm font-label-sm text-on-surface font-bold bg-surface-container-low/50">금</div>
+<div class="py-2 text-center text-label-sm font-label-sm text-on-surface font-bold bg-surface-container-low/50">토</div>
+</div>
+<!-- Grid Cells (Simplified mapping for visual representation) -->
+<div class="grid grid-cols-7 border-l border-outline-variant">
+<!-- Row 1 -->
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest opacity-50">
+<span class="text-label-sm font-label-sm text-on-surface-variant">31</span>
+<div class="mt-auto w-full bg-error-container text-[#ba1a1a] text-[10px] py-0.5 px-1 rounded text-center font-medium">휴일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">1</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">2</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">3</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">4</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">5</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-[#ba1a1a] font-bold">6</span>
+<div class="mt-auto w-full bg-error-container text-[#ba1a1a] text-[10px] py-0.5 px-1 rounded text-center font-medium">휴일</div>
+</div>
+<!-- Row 2 -->
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-[#ba1a1a] font-bold">7</span>
+<div class="mt-auto w-full bg-error-container text-[#ba1a1a] text-[10px] py-0.5 px-1 rounded text-center font-medium">휴일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">8</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">9</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">10</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">11</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">12</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-[#ba1a1a] font-bold">13</span>
+<div class="mt-auto w-full bg-error-container text-[#ba1a1a] text-[10px] py-0.5 px-1 rounded text-center font-medium">휴일</div>
+</div>
+<!-- Row 3 -->
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-[#ba1a1a] font-bold">14</span>
+<div class="mt-auto w-full bg-error-container text-[#ba1a1a] text-[10px] py-0.5 px-1 rounded text-center font-medium">휴일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">15</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">16</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">17</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">18</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-on-surface font-bold">19</span>
+<div class="mt-auto w-full bg-[#dcfce7] text-[#166534] text-[10px] py-0.5 px-1 rounded text-center font-medium">평일</div>
+</div>
+<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest ring-2 ring-primary ring-inset">
+<span class="text-label-sm font-label-sm text-[#ba1a1a] font-bold">20</span>
+<div class="mt-auto w-full bg-error-container text-[#ba1a1a] text-[10px] py-0.5 px-1 rounded text-center font-medium">휴일</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex gap-md mt-sm pt-sm border-t border-outline-variant px-sm">
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-sm bg-[#dcfce7]"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">평일</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-sm bg-error-container"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">휴일</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-sm bg-tertiary-fixed"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">휴무</span>
+</div>
+</div>
+</div>
+<!-- Date Detail List -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm flex flex-col">
+<div class="flex justify-between items-center mb-sm">
+<h3 class="text-label-md font-label-md font-bold text-on-surface">날짜 조회</h3>
+<div class="relative w-48">
+<input class="w-full h-8 pl-2 pr-8 border border-outline-variant rounded text-body-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="날짜 선택 또는 입력" type="text"/>
+<span class="material-symbols-outlined absolute right-2 top-1.5 text-on-surface-variant text-sm pointer-events-none">calendar_month</span>
+</div>
+</div>
+<div class="w-full overflow-x-auto rounded border border-outline-variant">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant text-label-sm font-label-sm text-on-surface">
+<th class="py-2 px-3 font-medium text-center w-1/3 border-r border-outline-variant">날짜</th>
+<th class="py-2 px-3 font-medium text-center w-1/4 border-r border-outline-variant">상태</th>
+<th class="py-2 px-3 font-medium text-center">비고</th>
+</tr>
+</thead>
+<tbody class="text-data-mono font-data-mono text-on-surface text-sm">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 text-center border-r border-outline-variant">2026-06-07 (일)</td>
+<td class="py-2 px-3 text-center border-r border-outline-variant text-[#ba1a1a] font-bold">휴일</td>
+<td class="py-2 px-3 text-on-surface-variant font-body-sm">일요일</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 text-center border-r border-outline-variant">2026-06-08 (월)</td>
+<td class="py-2 px-3 text-center border-r border-outline-variant text-[#166534] font-bold">평일</td>
+<td class="py-2 px-3 text-on-surface-variant font-body-sm">대체공휴일 아님</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 text-center border-r border-outline-variant">2026-06-09 (화)</td>
+<td class="py-2 px-3 text-center border-r border-outline-variant text-[#166534] font-bold">평일</td>
+<td class="py-2 px-3 text-on-surface-variant font-body-sm text-center">-</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 text-center border-r border-outline-variant">2026-06-10 (수)</td>
+<td class="py-2 px-3 text-center border-r border-outline-variant text-[#166534] font-bold">평일</td>
+<td class="py-2 px-3 text-on-surface-variant font-body-sm text-center">-</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 text-center border-r border-outline-variant">2026-06-14 (일)</td>
+<td class="py-2 px-3 text-center border-r border-outline-variant text-[#ba1a1a] font-bold">휴일</td>
+<td class="py-2 px-3 text-on-surface-variant font-body-sm">일요일</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 text-center border-r border-outline-variant">2026-06-20 (토)</td>
+<td class="py-2 px-3 text-center border-r border-outline-variant text-[#ba1a1a] font-bold">휴일</td>
+<td class="py-2 px-3 text-on-surface-variant font-body-sm">토요일</td>
+</tr>
+</tbody>
+</table>
+</div>
+<button class="w-full mt-2 py-2 text-primary text-label-md font-label-md flex items-center justify-center gap-1 hover:bg-surface-container-low rounded transition-colors">
+                            더보기 <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Right Sidebar (Extra Info / Summary) - Hidden on smaller screens to keep main content wide enough, visible on XL -->
+<aside class="hidden xl:flex flex-col w-72 bg-background border-l border-outline-variant p-md gap-md overflow-y-auto shrink-0">
+<!-- Info Box -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-sm">
+<div class="flex items-center gap-xs text-primary mb-xs">
+<span class="material-symbols-outlined text-lg">info</span>
+<h3 class="text-label-md font-label-md font-bold">근무표 활용 범위</h3>
+</div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface mt-sm mb-xs">철야근무 익일 평일/휴일/휴무 판정</p>
+<ul class="list-disc pl-4 text-body-sm font-body-sm text-on-surface-variant space-y-1">
+<li>철야근무 종료일의 다음 날을 기준으로 평일/휴일/휴무를 판정</li>
+<li>보상휴가 산정 기준(시간/배율) 결정에 사용</li>
+<li>근무표는 달력 기준(00:00~24:00)으로 관리</li>
+</ul>
+</div>
+<!-- Summary Box -->
+<div class="border border-outline-variant rounded-lg p-sm bg-surface-container-lowest">
+<h3 class="text-label-md font-label-md font-bold text-on-surface mb-sm border-b border-outline-variant pb-xs">2026년 요약</h3>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-[#166534]"></div>
+<span class="text-on-surface">평일</span>
+</div>
+<span class="font-data-mono font-medium">249일</span>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-[#ba1a1a]"></div>
+<span class="text-on-surface">휴일</span>
+</div>
+<span class="font-data-mono font-medium">104일</span>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-tertiary"></div>
+<span class="text-on-surface">휴무</span>
+</div>
+<span class="font-data-mono font-medium">12일</span>
+</div>
+<div class="pt-2 border-t border-outline-variant flex justify-between items-center text-label-md font-label-md">
+<span class="text-on-surface-variant">총</span>
+<span class="font-data-mono font-bold text-on-surface">365일</span>
+</div>
+</div>
+</div>
+<!-- Warning Box -->
+<div class="border border-[#f59e0b]/30 bg-[#fffbeb] rounded-lg p-sm">
+<div class="flex items-center gap-xs text-[#d97706] mb-xs">
+<span class="material-symbols-outlined text-lg">warning</span>
+<h3 class="text-label-md font-label-md font-bold">주의사항</h3>
+</div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface mt-sm mb-xs leading-relaxed">매년 연간 근무표를 최신 정보로 업데이트해 주세요.</p>
+<ul class="list-disc pl-4 text-body-sm font-body-sm text-on-surface-variant space-y-1">
+<li>공휴일 변경, 대체공휴일 지정 등으로 일정이 달라질 수 있습니다.</li>
+<li>변경 사항이 있을 경우 반드시 새 파일을 업로드하여 최신화 해 주세요.</li>
+</ul>
+</div>
+</aside>
+</div>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="engine.js"></script>
+<script>
+(function () {
+  var E = window.CompEngine;
+  var view = { y: 2026, m: 6 }; // 표시 중인 연/월
+  function $all(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function byText(sel, re) { return $all(sel).filter(function (el) { return re.test(el.textContent || ''); }); }
+  function pad(n) { return ('0' + n).slice(-2); }
+  function dateKey(y, m, d) { return y + '-' + pad(m) + '-' + pad(d); }
+
+  function statusOf(y, m, d, map) { return E.scheduleStatus(dateKey(y, m, d), map); }
+
+  function cellClasses(status) {
+    if (status === '휴일') return { num: 'text-[#ba1a1a]', tag: 'bg-error-container text-[#ba1a1a]' };
+    if (status === '휴무') return { num: 'text-on-surface', tag: 'bg-tertiary-fixed text-on-tertiary-fixed' };
+    return { num: 'text-on-surface', tag: 'bg-[#dcfce7] text-[#166534]' };
+  }
+
+  function cellHTML(day, status, opacity) {
+    var c = cellClasses(status);
+    return '<div class="border-b border-r border-outline-variant h-20 p-xs flex flex-col bg-surface-container-lowest' + (opacity ? ' opacity-50' : '') + '">' +
+      '<span class="text-label-sm font-label-sm ' + c.num + ' font-bold">' + day + '</span>' +
+      '<div class="mt-auto w-full ' + c.tag + ' text-[10px] py-0.5 px-1 rounded text-center font-medium">' + status + '</div>' +
+      '</div>';
+  }
+
+  function renderCalendar() {
+    var map = E.loadSchedule();
+    var grid = document.querySelector('.min-w-\\[600px\\] .grid.border-l') ||
+      $all('.grid.grid-cols-7')[1];
+    if (!grid) return;
+    var first = new Date(Date.UTC(view.y, view.m - 1, 1));
+    var startDow = first.getUTCDay();
+    var daysInMonth = new Date(Date.UTC(view.y, view.m, 0)).getUTCDate();
+    var prevDays = new Date(Date.UTC(view.y, view.m - 1, 0)).getUTCDate();
+    var html = '';
+    // 이전 달 채우기
+    for (var i = 0; i < startDow; i++) {
+      var d = prevDays - startDow + 1 + i;
+      var pm = view.m === 1 ? 12 : view.m - 1, py = view.m === 1 ? view.y - 1 : view.y;
+      html += cellHTML(d, statusOf(py, pm, d, map), true);
+    }
+    for (var day = 1; day <= daysInMonth; day++) {
+      html += cellHTML(day, statusOf(view.y, view.m, day, map), false);
+    }
+    // 다음 달 채우기 (7의 배수로)
+    var filled = startDow + daysInMonth;
+    var rest = (7 - (filled % 7)) % 7;
+    var nm = view.m === 12 ? 1 : view.m + 1, ny = view.m === 12 ? view.y + 1 : view.y;
+    for (var k = 1; k <= rest; k++) {
+      html += cellHTML(k, statusOf(ny, nm, k, map), true);
+    }
+    grid.innerHTML = html;
+    // 제목
+    var title = byText('h2', /근무표 미리보기/)[0];
+    if (title && title.firstChild) title.firstChild.textContent = view.y + '년 ' + view.m + '월 근무표 미리보기 ';
+    renderList(map);
+    renderSummary(map);
+  }
+
+  function renderList(map) {
+    var tb = document.querySelector('main table tbody, .overflow-x-auto table tbody');
+    if (!tb) return;
+    var dow = ['일', '월', '화', '수', '목', '금', '토'];
+    var daysInMonth = new Date(Date.UTC(view.y, view.m, 0)).getUTCDate();
+    var rows = '';
+    for (var day = 1; day <= daysInMonth; day++) {
+      var st = statusOf(view.y, view.m, day, map);
+      var k = dateKey(view.y, view.m, day);
+      var dt = new Date(Date.UTC(view.y, view.m - 1, day));
+      var w = dt.getUTCDay();
+      var note = st === '휴일' ? (w === 0 ? '일요일' : w === 6 ? '토요일' : '공휴일') : (st === '휴무' ? '휴무일' : '-');
+      var color = st === '휴일' ? 'text-[#ba1a1a]' : (st === '휴무' ? 'text-tertiary' : 'text-[#166534]');
+      rows += '<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">' +
+        '<td class="py-2 px-3 text-center border-r border-outline-variant">' + k + ' (' + dow[w] + ')</td>' +
+        '<td class="py-2 px-3 text-center border-r border-outline-variant ' + color + ' font-bold">' + st + '</td>' +
+        '<td class="py-2 px-3 text-on-surface-variant font-body-sm text-center">' + note + '</td></tr>';
+    }
+    tb.innerHTML = rows;
+  }
+
+  function renderSummary(map) {
+    var counts = { 평일: 0, 휴일: 0, 휴무: 0 };
+    for (var mo = 1; mo <= 12; mo++) {
+      var dim = new Date(Date.UTC(view.y, mo, 0)).getUTCDate();
+      for (var d = 1; d <= dim; d++) counts[statusOf(view.y, mo, d, map)]++;
+    }
+    [['평일', counts.평일], ['휴일', counts.휴일], ['휴무', counts.휴무]].forEach(function (pair) {
+      byText('aside span', new RegExp('^' + pair[0] + '$')).forEach(function (s) {
+        var row = s.closest('.flex.justify-between');
+        if (row) { var v = row.querySelector('.font-data-mono'); if (v) v.textContent = pair[1] + '일'; }
+      });
+    });
+  }
+
+  function readFile(file) {
+    return new Promise(function (res, rej) {
+      var fr = new FileReader();
+      fr.onload = function () { res(new Uint8Array(fr.result)); };
+      fr.onerror = rej; fr.readAsArrayBuffer(file);
+    });
+  }
+  function onSchedule(files) {
+    if (!files.length) return;
+    readFile(files[0]).then(function (buf) {
+      try {
+        var m = E.parseScheduleWorkbook(buf);
+        E.saveSchedule(Object.assign({}, E.loadSchedule(), m));
+        alert('근무표 ' + Object.keys(m).length + '개 날짜를 적용했습니다.');
+        renderCalendar();
+      } catch (e) { alert('근무표 파싱 실패: ' + e.message); }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var input = document.createElement('input');
+    input.type = 'file'; input.accept = '.xls,.xlsx'; input.style.display = 'none';
+    input.addEventListener('change', function () { onSchedule(Array.prototype.slice.call(input.files)); input.value = ''; });
+    document.body.appendChild(input);
+
+    var dz = document.querySelector('.border-dashed');
+    if (dz) {
+      dz.addEventListener('click', function () { input.click(); });
+      dz.addEventListener('dragover', function (e) { e.preventDefault(); });
+      dz.addEventListener('drop', function (e) { e.preventDefault(); onSchedule(Array.prototype.slice.call(e.dataTransfer.files)); });
+    }
+    byText('button', /새 근무표 업로드/).forEach(function (b) { b.addEventListener('click', function () { input.click(); }); });
+
+    // 달력 이동
+    var navBtns = $all('h2 button .material-symbols-outlined');
+    byText('button', /^$/); // noop
+    var chevrons = $all('h2 button');
+    chevrons.forEach(function (b) {
+      if (/chevron_left/.test(b.textContent)) b.addEventListener('click', function () {
+        view.m--; if (view.m < 1) { view.m = 12; view.y--; } renderCalendar();
+      });
+      if (/chevron_right/.test(b.textContent)) b.addEventListener('click', function () {
+        view.m++; if (view.m > 12) { view.m = 1; view.y++; } renderCalendar();
+      });
+    });
+    byText('button', /^오늘$/).forEach(function (b) {
+      b.addEventListener('click', function () { view = { y: 2026, m: 6 }; renderCalendar(); });
+    });
+
+    renderCalendar();
+  });
+})();
+</script>
+</body></html>

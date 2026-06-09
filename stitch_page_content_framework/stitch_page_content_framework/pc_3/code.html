@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>보상휴가 자동계산 웹앱 - 엑셀 업로드</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#faf8ff",
+                        "tertiary-fixed": "#d8e3fb",
+                        "surface-tint": "#0054d6",
+                        "tertiary": "#4f5a6e",
+                        "secondary-container": "#e0e3e5",
+                        "outline-variant": "#c2c6d8",
+                        "surface-variant": "#e1e2ee",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eff0fd",
+                        "on-primary-fixed": "#001849",
+                        "secondary-fixed-dim": "#c4c7c9",
+                        "primary": "#0050cb",
+                        "on-surface": "#191b24",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e303a",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-fixed-variant": "#444749",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#dae1ff",
+                        "on-tertiary-fixed": "#111c2d",
+                        "tertiary-container": "#677287",
+                        "tertiary-fixed-dim": "#bcc7de",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-tertiary-container": "#f6f7ff",
+                        "on-primary-container": "#f8f7ff",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "on-secondary-fixed": "#191c1e",
+                        "on-surface-variant": "#424656",
+                        "surface-bright": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e1e2ee",
+                        "secondary": "#5c5f61",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#626567",
+                        "inverse-primary": "#b3c5ff",
+                        "outline": "#727687",
+                        "surface-dim": "#d8d9e6",
+                        "surface": "#faf8ff",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container": "#ecedfa",
+                        "primary-container": "#0066ff",
+                        "secondary-fixed": "#e0e3e5",
+                        "on-background": "#191b24",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e6e7f4",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xs": "4px",
+                        "stack-gap": "12px",
+                        "md": "16px",
+                        "base": "4px",
+                        "container-margin": "16px",
+                        "xl": "32px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "data-mono": ["13px", {"lineHeight": "18px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #faf8ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-on-surface bg-background">
+<!-- SideNavBar -->
+<aside class="docked h-screen left-0 w-64 border-r border-outline-variant bg-surface dark:bg-inverse-surface flex flex-col py-md hidden md:flex shrink-0">
+<div class="px-lg pb-md mb-md border-b border-outline-variant">
+<div class="flex items-center gap-sm mb-xs">
+<span class="material-symbols-outlined text-primary text-2xl icon-fill" data-icon="event_available">event_available</span>
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary">보상휴가 자동계산</h1>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">엑셀 입력 → 자동 계산 → 재입력용 결과 출력</p>
+</div>
+<nav class="flex-1 overflow-y-auto">
+<ul class="flex flex-col gap-xs">
+<li>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 text-label-md font-label-md hover:bg-secondary-container dark:hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+                        대시보드
+                    </a>
+</li>
+<li>
+<a class="bg-primary-container text-on-primary-container font-bold rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 text-label-md font-label-md scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="cloud_upload">cloud_upload</span>
+                        엑셀 업로드
+                    </a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 text-label-md font-label-md hover:bg-secondary-container dark:hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+                        계산 결과
+                    </a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 text-label-md font-label-md hover:bg-secondary-container dark:hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+                        근무표 관리
+                    </a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 text-label-md font-label-md hover:bg-secondary-container dark:hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="rule">rule</span>
+                        계산 규칙
+                    </a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3 text-label-md font-label-md hover:bg-secondary-container dark:hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                        다운로드 내역
+                    </a>
+</li>
+</ul>
+</nav>
+<div class="mt-auto px-4 pt-md border-t border-outline-variant">
+<button class="w-full text-on-surface-variant hover:bg-surface-container-low px-4 py-3 rounded-lg flex items-center gap-3 text-label-md font-label-md hover:bg-secondary-container transition-colors justify-center">
+<span class="material-symbols-outlined" data-icon="keyboard_double_arrow_left">keyboard_double_arrow_left</span>
+                메뉴 접기
+            </button>
+</div>
+</aside>
+<div class="flex-1 flex flex-col overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-lg py-sm h-16 shrink-0">
+<div class="flex-1 flex items-center gap-sm">
+<button class="md:hidden text-on-surface p-2 rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="text-headline-md font-headline-md font-bold text-on-surface dark:text-inverse-on-surface md:hidden">보상휴가 자동계산 웹앱</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs px-3 py-1.5 rounded-full border border-outline-variant text-label-md font-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span> 도움말
+                </button>
+<button class="flex items-center gap-xs px-3 py-1.5 rounded-full border border-outline-variant text-label-md font-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span> 설정
+                </button>
+<div class="h-6 w-px bg-outline-variant mx-xs"></div>
+<button class="flex items-center gap-sm px-2 py-1 rounded-full hover:bg-surface-container-low transition-colors text-primary dark:text-primary-fixed-dim">
+<img alt="Administrator Avatar" class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAU9K2-VcWKhGro4rTFymkVSsG6VexLI9Fyr4MFMlHx5rOEV_92ITsY2kDeEqd2nHT1JaW9UPSoBDc4XOEInhKBSA7KIDzYjAIvxtsiIjgm6skzE0YKvVRFcJkQB9HrOV5t-CJbAIsEMyIsbraB8riLiSOAUO7VavI_sAoXSz2PrP3Ij_e5SW6hPb744XKQx-2GMZ_L2wD7vW6TqleXG0PSbMjX1c9RsgXpUif7pgGZLInzh4aQbdnnz4TwW6WuU3C1oLc4ZHMPnL4"/>
+<span class="text-label-md font-label-md hidden sm:block">김관리</span>
+<span class="material-symbols-outlined text-[20px]" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto p-md md:p-lg lg:p-xl bg-surface-container-lowest">
+<div class="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-lg">
+<!-- Left Column (Main Upload Area) -->
+<div class="flex-1 flex flex-col gap-lg">
+<!-- Section Header -->
+<div class="flex justify-between items-end border-b border-outline-variant pb-sm">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-1">초과근무 보상휴가 산정</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">업로드한 초과근무 엑셀 파일을 자동으로 변환하여 보상휴가 적치시간으로 산정합니다.</p>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-low rounded-full border border-outline-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-[#10b981]"></span>
+<span class="text-label-md font-label-md text-on-surface">처리 상태: 준비 완료</span>
+</div>
+</div>
+<!-- Upload Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- 1. 초과근무 엑셀 업로드 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-md flex flex-col">
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-md">1. 초과근무 엑셀 업로드</h3>
+<div class="flex-1 border-2 border-dashed border-primary-fixed-dim bg-surface-container-low rounded-lg flex flex-col items-center justify-center p-md text-center hover:bg-surface-container-highest transition-colors cursor-pointer mb-md min-h-[140px]">
+<span class="material-symbols-outlined text-primary text-4xl mb-2 icon-fill" data-icon="cloud_upload">cloud_upload</span>
+<p class="text-body-sm font-body-sm text-on-surface-variant">.xls 파일을 드래그하거나<br/>클릭하여 업로드</p>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="flex items-center justify-between p-2.5 border border-[#e2e8f0] rounded-lg bg-surface">
+<div class="flex items-center gap-2 overflow-hidden">
+<span class="material-symbols-outlined text-[#10b981]" data-icon="description">description</span>
+<span class="text-body-sm font-body-sm text-on-surface truncate">일반연장근무_2026-06.xls</span>
+</div>
+<span class="text-[10px] font-medium px-2 py-0.5 rounded text-[#10b981] bg-[#10b981]/10 border border-[#10b981]/20 whitespace-nowrap">업로드 완료</span>
+</div>
+<div class="flex items-center justify-between p-2.5 border border-[#e2e8f0] rounded-lg bg-surface">
+<div class="flex items-center gap-2 overflow-hidden">
+<span class="material-symbols-outlined text-[#10b981]" data-icon="description">description</span>
+<span class="text-body-sm font-body-sm text-on-surface truncate">비상출동_2026-06.xls</span>
+</div>
+<span class="text-[10px] font-medium px-2 py-0.5 rounded text-[#10b981] bg-[#10b981]/10 border border-[#10b981]/20 whitespace-nowrap">업로드 완료</span>
+</div>
+</div>
+<div class="mt-md flex items-start gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="info">info</span>
+<span class="text-label-sm font-label-sm">엑셀 1개 = 초과근무 종류 1개</span>
+</div>
+</div>
+<!-- 2. 근무 종류 / 규칙 확인 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-md flex flex-col">
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-md">2. 근무 종류 / 규칙 확인</h3>
+<div class="mb-md">
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">근무 종류</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface border border-outline-variant rounded-lg px-3 py-2 text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<option>일반연장근무</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-1 mb-md">
+<button class="px-2 py-1 bg-primary text-on-primary text-label-sm font-label-sm rounded border border-primary">일반연장근무</button>
+<button class="px-2 py-1 bg-surface text-on-surface-variant text-label-sm font-label-sm rounded border border-outline-variant hover:bg-surface-container-low transition-colors">휴일근무</button>
+<button class="px-2 py-1 bg-surface text-on-surface-variant text-label-sm font-label-sm rounded border border-outline-variant hover:bg-surface-container-low transition-colors">대체근무</button>
+<button class="px-2 py-1 bg-surface text-on-surface-variant text-label-sm font-label-sm rounded border border-outline-variant hover:bg-surface-container-low transition-colors">비상출동</button>
+<button class="px-2 py-1 bg-surface text-on-surface-variant text-label-sm font-label-sm rounded border border-outline-variant hover:bg-surface-container-low transition-colors">철야근무</button>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg p-3 border border-outline-variant">
+<h4 class="text-label-md font-label-md text-on-surface mb-2">적용 규칙 미리보기</h4>
+<ul class="text-body-sm font-body-sm text-on-surface-variant list-disc list-inside space-y-1">
+<li>가산율 1.5배</li>
+<li>4시간 이상 시 30분 휴게 공제</li>
+<li>10분 단위 절사</li>
+<li>22시 이후는 일반연장 불인정</li>
+</ul>
+</div>
+</div>
+<!-- 3. 근무표 업로드 -->
+<div class="bg-surface rounded-xl border border-outline-variant p-md flex flex-col">
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-md">3. 근무표 업로드 (철야근무용)</h3>
+<div class="border-2 border-dashed border-primary-fixed-dim bg-surface-container-low rounded-lg flex flex-col items-center justify-center p-md text-center hover:bg-surface-container-highest transition-colors cursor-pointer mb-sm min-h-[100px]">
+<span class="material-symbols-outlined text-primary text-3xl mb-1 icon-fill" data-icon="cloud_upload">cloud_upload</span>
+<p class="text-label-md font-label-md text-primary">연간 근무표 엑셀 업로드</p>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant text-center mb-md">철야근무 시 익일이 평일 / 휴일 / 휴무인지<br/>자동 판정</p>
+<div class="flex-1 overflow-hidden border border-outline-variant rounded-lg">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="py-2 px-3 text-label-sm font-label-sm font-medium text-on-surface-variant text-center border-r border-outline-variant w-1/2">날짜</th>
+<th class="py-2 px-3 text-label-sm font-label-sm font-medium text-on-surface-variant text-center">상태</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm text-on-surface">
+<tr class="border-b border-outline-variant">
+<td class="py-2 px-3 text-center border-r border-outline-variant">2026-06-07</td>
+<td class="py-2 px-3 text-center">평일</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="py-2 px-3 text-center border-r border-outline-variant">2026-06-08</td>
+<td class="py-2 px-3 text-center">휴일</td>
+</tr>
+<tr>
+<td class="py-2 px-3 text-center border-r border-outline-variant">2026-06-09</td>
+<td class="py-2 px-3 text-center">휴무</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex flex-col sm:flex-row items-center gap-md bg-surface p-md rounded-xl border border-outline-variant">
+<button class="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 bg-primary text-on-primary py-3 px-6 rounded-lg text-headline-sm font-headline-sm hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined icon-fill" data-icon="play_arrow">play_arrow</span>
+                            자동 계산 시작
+                        </button>
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface text-on-surface border border-outline-variant py-3 px-6 rounded-lg text-label-md font-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+                            초기화
+                        </button>
+<div class="hidden sm:block h-10 w-px bg-outline-variant mx-sm"></div>
+<div class="flex w-full sm:w-auto gap-md">
+<div class="flex-1 sm:flex-none flex items-center gap-3 px-4 py-2 border border-outline-variant rounded-lg bg-surface">
+<span class="material-symbols-outlined text-primary text-2xl icon-fill" data-icon="folder">folder</span>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">업로드 파일</div>
+<div class="text-headline-sm font-headline-sm text-primary font-bold">2<span class="text-body-sm font-normal ml-0.5">건</span></div>
+</div>
+</div>
+<div class="flex-1 sm:flex-none flex items-center gap-3 px-4 py-2 border border-outline-variant rounded-lg bg-surface">
+<span class="material-symbols-outlined text-primary text-2xl icon-fill" data-icon="group">group</span>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">검토 대상</div>
+<div class="text-headline-sm font-headline-sm text-primary font-bold">48<span class="text-body-sm font-normal ml-0.5">건</span></div>
+</div>
+</div>
+<div class="flex-1 sm:flex-none flex items-center gap-3 px-4 py-2 border border-error-container bg-error-container/20 rounded-lg">
+<span class="material-symbols-outlined text-error text-2xl icon-fill" data-icon="warning">warning</span>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">오류</div>
+<div class="text-headline-sm font-headline-sm text-error font-bold">0<span class="text-body-sm font-normal ml-0.5">건</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Results Table Preview -->
+<div class="bg-surface rounded-xl border border-outline-variant flex flex-col mt-md">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">보상휴가 산정 결과</h3>
+<div class="flex gap-2">
+<button class="flex items-center gap-1.5 px-3 py-1.5 text-label-md font-label-md border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span> 결과 엑셀 다운로드
+                                </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 text-label-md font-label-md border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="print">print</span> 근태시스템 업로드 양식 보기
+                                </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse whitespace-nowrap">
+<thead class="bg-surface-container-lowest border-b border-outline-variant">
+<tr>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center">사번</th>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center">이름</th>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center">부서</th>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center">일자</th>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center">시작시간</th>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center">종료시간</th>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center">근무종류</th>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center">계산상세</th>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center bg-surface-container-low">보상휴가 적치시간</th>
+<th class="py-3 px-4 text-label-sm font-label-sm text-on-surface-variant font-medium text-center">비고</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm text-on-surface divide-y divide-outline-variant font-data-mono">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 text-center">1001</td>
+<td class="py-3 px-4 text-center font-body-sm">김지현</td>
+<td class="py-3 px-4 text-center font-body-sm">인사팀</td>
+<td class="py-3 px-4 text-center">2026-06-01</td>
+<td class="py-3 px-4 text-center">18:00</td>
+<td class="py-3 px-4 text-center">22:00</td>
+<td class="py-3 px-4 text-center font-body-sm">일반연장근무</td>
+<td class="py-3 px-4 text-center text-on-surface-variant text-xs">4h - 0.5h, 1.5배</td>
+<td class="py-3 px-4 text-center font-bold text-primary bg-surface-container-low">5:15</td>
+<td class="py-3 px-4 text-center font-body-sm text-xs text-on-surface-variant">22시 기준 절단</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 text-center">1002</td>
+<td class="py-3 px-4 text-center font-body-sm">박준호</td>
+<td class="py-3 px-4 text-center font-body-sm">개발팀</td>
+<td class="py-3 px-4 text-center">2026-06-03</td>
+<td class="py-3 px-4 text-center">09:00</td>
+<td class="py-3 px-4 text-center">17:00</td>
+<td class="py-3 px-4 text-center font-body-sm">휴일근무</td>
+<td class="py-3 px-4 text-center text-on-surface-variant text-xs">전일 8h × 1.5</td>
+<td class="py-3 px-4 text-center font-bold text-primary bg-surface-container-low">12:00</td>
+<td class="py-3 px-4 text-center font-body-sm text-xs text-on-surface-variant">교대근무</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 text-center">1003</td>
+<td class="py-3 px-4 text-center font-body-sm">이서연</td>
+<td class="py-3 px-4 text-center font-body-sm">운영팀</td>
+<td class="py-3 px-4 text-center">2026-06-04</td>
+<td class="py-3 px-4 text-center">20:00</td>
+<td class="py-3 px-4 text-center">익일02:00</td>
+<td class="py-3 px-4 text-center font-body-sm">비상출동</td>
+<td class="py-3 px-4 text-center text-on-surface-variant text-xs">주간 2h + 야간 3.5h</td>
+<td class="py-3 px-4 text-center font-bold text-primary bg-surface-container-low">10:00</td>
+<td class="py-3 px-4 text-center font-body-sm text-xs text-on-surface-variant">휴게 30분 반영</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 text-center">1004</td>
+<td class="py-3 px-4 text-center font-body-sm">최민수</td>
+<td class="py-3 px-4 text-center font-body-sm">영업팀</td>
+<td class="py-3 px-4 text-center">2026-06-05</td>
+<td class="py-3 px-4 text-center">22:00</td>
+<td class="py-3 px-4 text-center">익일02:00</td>
+<td class="py-3 px-4 text-center font-body-sm">철야근무</td>
+<td class="py-3 px-4 text-center text-on-surface-variant text-xs">철야 4h, 익일 평일</td>
+<td class="py-3 px-4 text-center font-bold text-primary bg-surface-container-low">4:00</td>
+<td class="py-3 px-4 text-center font-body-sm text-xs text-on-surface-variant">자동휴가 1차감 반영</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 text-center">1005</td>
+<td class="py-3 px-4 text-center font-body-sm">정하늘</td>
+<td class="py-3 px-4 text-center font-body-sm">총무팀</td>
+<td class="py-3 px-4 text-center">2026-06-06</td>
+<td class="py-3 px-4 text-center">13:00</td>
+<td class="py-3 px-4 text-center">17:00</td>
+<td class="py-3 px-4 text-center font-body-sm">대체근무</td>
+<td class="py-3 px-4 text-center text-on-surface-variant text-xs">반일 4h × 1.5</td>
+<td class="py-3 px-4 text-center font-bold text-primary bg-surface-container-low">6:00</td>
+<td class="py-3 px-4 text-center font-body-sm text-xs text-on-surface-variant">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-3 border-t border-outline-variant flex justify-between items-center bg-surface rounded-b-xl">
+<span class="text-label-sm text-on-surface-variant">총 48건</span>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-low"><span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-medium text-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-transparent text-on-surface hover:bg-surface-container-low font-medium text-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-transparent text-on-surface hover:bg-surface-container-low font-medium text-sm">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-transparent text-on-surface hover:bg-surface-container-low font-medium text-sm">4</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-transparent text-on-surface hover:bg-surface-container-low font-medium text-sm">5</button>
+<span class="w-8 h-8 flex items-center justify-center text-on-surface-variant">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-transparent text-on-surface hover:bg-surface-container-low font-medium text-sm">10</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-low"><span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Sidebar Information) -->
+<div class="w-full lg:w-[280px] flex flex-col gap-md shrink-0">
+<!-- Auto Review Points -->
+<div class="bg-surface rounded-xl border border-outline-variant p-md">
+<div class="flex items-center gap-2 mb-sm">
+<span class="material-symbols-outlined text-primary icon-fill" data-icon="radio_button_checked">radio_button_checked</span>
+<h3 class="text-headline-sm font-headline-sm text-primary">자동 검토 포인트</h3>
+</div>
+<ul class="text-body-sm font-body-sm text-on-surface space-y-2.5 ml-1">
+<li class="flex items-start gap-2 before:content-['•'] before:text-on-surface-variant">자정 넘김 보완</li>
+<li class="flex items-start gap-2 before:content-['•'] before:text-on-surface-variant">휴게시간 자동 차감</li>
+<li class="flex items-start gap-2 before:content-['•'] before:text-on-surface-variant">익일 근무표 조회</li>
+</ul>
+</div>
+<!-- Expected Effects -->
+<div class="bg-[#f0fdf4] rounded-xl border border-[#bbf7d0] p-md">
+<div class="flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-[#16a34a] icon-fill" data-icon="trending_up">trending_up</span>
+<h3 class="text-headline-sm font-headline-sm text-[#16a34a]">기대 효과</h3>
+</div>
+<div class="space-y-2">
+<div class="bg-white border border-[#bbf7d0] rounded-lg p-2.5 flex items-center gap-2">
+<span class="material-symbols-outlined text-[#16a34a] icon-fill" data-icon="check_circle">check_circle</span>
+<span class="text-body-sm font-body-sm text-on-surface">오류 감소</span>
+</div>
+<div class="bg-white border border-[#bbf7d0] rounded-lg p-2.5 flex items-center gap-2">
+<span class="material-symbols-outlined text-[#16a34a] icon-fill" data-icon="check_circle">check_circle</span>
+<span class="text-body-sm font-body-sm text-on-surface">시간 절약</span>
+</div>
+<div class="bg-white border border-[#bbf7d0] rounded-lg p-2.5 flex items-center gap-2">
+<span class="material-symbols-outlined text-[#16a34a] icon-fill" data-icon="receipt_long">receipt_long</span>
+<span class="text-body-sm font-body-sm text-on-surface">재입력 감소화</span>
+</div>
+</div>
+</div>
+<!-- Privacy Notice -->
+<div class="bg-[#fffbeb] rounded-xl border border-[#fde68a] p-md">
+<div class="flex items-center gap-2 mb-sm">
+<span class="material-symbols-outlined text-[#d97706] icon-fill" data-icon="privacy_tip">privacy_tip</span>
+<h3 class="text-headline-sm font-headline-sm text-[#d97706]">개인정보 주의</h3>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface">
+                            사번·이름·부서 포함 파일은<br/>사내 기준에 따라 처리.
+                        </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
